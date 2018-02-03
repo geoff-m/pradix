@@ -2,6 +2,10 @@
 #include <limits>
 #include <vector>
 
-void countingSort(std::vector<int>* data, int power);
+int* radixSort(int* data, int length, int max);
 
-void printArray(int* a, int len);
+int* radixSort(int* data, int length);
+
+std::vector<int> countingSort(std::vector<int> data, int power);
+
+int* countingSort(int* data, int length, int power);
