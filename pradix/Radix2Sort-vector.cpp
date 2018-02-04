@@ -1,11 +1,13 @@
 #include "Radix2Sort.h"
 
-int exponent = 3; // base is 2^exponent.
-int radix = 1 << exponent; // 2 ^ 3 is our base (bucket count).
-int digits = (int)ceil(sizeof(int) * 8.0 / exponent); // number of place values we need to care about.
-
 std::vector<int> Radix2Sorter::sort(std::vector<int> data)
 {
+	return sort(data, max(data));
+}
+
+std::vector<int> Radix2Sorter::sort(std::vector<int> data, int maximum)
+{
+	int digits = (int)(log(maximum) / log(radix)) + 1;
 	for (int place = 0; place < digits; ++place)
 	{
 		//printf("so far: ");
@@ -44,7 +46,7 @@ std::vector<int> Radix2Sorter::countingSort(std::vector<int> data, int power)
 
 	std::vector<int> output(data.size());
 
-	for (int i = data.size() - 1; i >= 0; --i) // going 0..size here means we lose stability.
+	for (int i = data.size() - 1; i >= 0; --i) // going 0->size here means we lose stability.
 	{
 		int item = data.at(i);
 		int digit = (item / power) % radix;
@@ -53,5 +55,15 @@ std::vector<int> Radix2Sorter::countingSort(std::vector<int> data, int power)
 		output[thisCount] = item;
 	}
 
+	delete[] counts;
 	return output;
+}
+
+int Radix2Sorter::max(std::vector<int> data)
+{
+	int ret = INT_MIN;
+	for (auto it = data.begin(); it != data.end(); ++it)
+		if (ret < *it)
+			ret = *it;
+	return ret;
 }

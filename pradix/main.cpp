@@ -10,24 +10,22 @@ int main(int argc, char** argv)
 	printf("OMP max threads: %d\n", maxThreads);
 
 	// let's first implement it sequentially to show i know what i'm doing
-
-	const int COUNT = 100;
-	printf("generating numbers...");
-	int* data = getRandoms(COUNT, 0, 100);
+	const int COUNT = 10000;
+	printf("generating %d numbers...", COUNT);
+	int* data = getRandoms(COUNT, 0, INT_MAX);
 	printf("done\n");
-	//int data[] = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	//printArray(data, COUNT);
 	printf("sorting...\n");
 
-	std::vector<int> vec(data, data + COUNT);
 	Radix2Sorter sorter(3);
-	vec = sorter.sort(vec);
+	data = sorter.sort(data, COUNT);
 
 	printf("sort done\n");
 	//printArray(data, COUNT);
-	//printVector(vec);
-	printf("check order: %s\n", checkOrder(vec.data(), COUNT) ? "passed" : "failed");
+	printf("check order: %s\n", checkOrder(data, COUNT) ? "passed" : "failed");
 	printf("\n\nPress enter to quit...");
+	delete[] data;
 	getchar();
+	
 	return 0;
 }

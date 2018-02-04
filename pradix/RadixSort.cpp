@@ -1,6 +1,8 @@
 #include "RadixSort.h"
 #include "utility.h"
 
+// reference implementation of radix sort using arbitrary radix.
+// not part of build.
 std::vector<int> countingSort(std::vector<int> data, int power)
 {
 	int* counts = new int[PLACES];

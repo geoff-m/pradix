@@ -27,7 +27,10 @@
     <ClCompile Include="utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Radix2Sort.cpp">
+    <ClCompile Include="Radix2Sort-vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Radix2Sort-int.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
