@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <omp.h>
+#include "DataSource.h"
 #include "RadixSort.h"
-#include "RandomSource.h"
 #include "Radix2Sort.h"
+#include "Radix2SorterParallel.h"
 
 int main(int argc, char** argv)
 {
@@ -10,14 +11,17 @@ int main(int argc, char** argv)
 	printf("OMP max threads: %d\n", maxThreads);
 
 	// let's first implement it sequentially to show i know what i'm doing
-	const int COUNT = 10000;
+	const int COUNT = INT_MAX;
 	printf("generating %d numbers...", COUNT);
-	int* data = getRandoms(COUNT, 0, INT_MAX);
+
+	int* data = getRandomsParallel(COUNT, 0, INT_MAX);
+	//int* data = getSequence(COUNT, 0, -1);
+
 	printf("done\n");
 	//printArray(data, COUNT);
 	printf("sorting...\n");
 
-	Radix2Sorter sorter(3);
+	Radix2SorterParallel sorter(3);
 	data = sorter.sort(data, COUNT);
 
 	printf("sort done\n");

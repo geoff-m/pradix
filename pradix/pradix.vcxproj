@@ -125,18 +125,20 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Radix2Sort-int.cpp" />
     <ClCompile Include="Radix2Sort-vector.cpp" />
+    <ClCompile Include="Radix2SorterParallel.cpp" />
     <ClCompile Include="RadixSort.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="RandomSource.cpp" />
+    <ClCompile Include="DataSource.cpp" />
     <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Radix2Sort.h" />
+    <ClInclude Include="Radix2SorterParallel.h" />
     <ClInclude Include="RadixSort.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="RandomSource.h" />
+    <ClInclude Include="DataSource.h" />
     <ClInclude Include="utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
