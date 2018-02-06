@@ -1,11 +1,12 @@
 #include "Radix2SorterParallel.h"
+//#include "utility.h" // for debug
 
-void Radix2SorterParallel::sort(int* data, int length)
+void Radix2SorterParallel::sort(int** data, int length)
 {
-	sort(data, length, max(data, length));
+	sort(data, length, max(*data, length));
 }
 
-void Radix2SorterParallel::sort(int* data, int length, int maximum)
+void Radix2SorterParallel::sort(int** data, int length, int maximum)
 {
 	int digits = (int)floor(log(maximum) / log(radix) + 1);
 	printf("Maximum value has %d digits in base %d.\n", digits, radix);
@@ -16,9 +17,9 @@ void Radix2SorterParallel::sort(int* data, int length, int maximum)
 	for (int place = 0; place < digits; ++place, effectiveExponent += exponent)
 	{
 		printf("Sorting place %d...\n", place);
-		partlySorted = countingSort(data, length, effectiveExponent);
-		delete[] data;
-		data = partlySorted;	
+		partlySorted = countingSort(*data, length, effectiveExponent);
+		delete[] *data;
+		*data = partlySorted;
 	}
 }
 

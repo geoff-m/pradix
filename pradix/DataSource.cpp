@@ -1,6 +1,7 @@
 #include "DataSource.h"
 #include <assert.h>
 #include "mkl_vsl.h"
+#include "mkl.h"
 #define BRNG    VSL_BRNG_MT19937
 #define METHOD  VSL_RNG_METHOD_UNIFORM_STD
 
@@ -15,39 +16,29 @@ int* getRandoms(int length, int minimum, int maximum)
 	return ret;
 }
 
-int* getRandomsParallel(int length, int minimum, int maximum)
+int* getRandomsFast(int length, int minimum, int maximum)
 {
-	int* buffer = new int[length];
-
+	int* ret = new int[length];
+	
 	// Create random stream
+	int error;
 	VSLStreamStatePtr stream;
-	int error = vslNewStream(&stream, BRNG, 12345);
+	error = vslNewStream(&stream, BRNG, 12345);
 	CheckVslError(error);
 
 	// Create distribution generator
-	printf("Begin setup dist\n");
-	error = viRngUniform(METHOD, stream, length, buffer, minimum, maximum);
+	error = viRngUniform(METHOD, stream, length, ret, minimum, maximum);
 	CheckVslError(error);
-	printf("done setup dist\n");
-
-	// Copy to buffer that will outlive the stream (necessary?)
-	printf("Begin copy\n");
-	int* ret = new int[length];
-	std::copy(buffer, buffer + length, ret);
-	printf("end copy\n");
 
 	// Destroy the stream
 	error = vslDeleteStream(&stream);
 	CheckVslError(error);
 
-	// Free the buffer that was used to initialize the generator (could just return this instead?)
-	delete[] buffer;
+	// Prevent memory leak.
+	MKL_Free_Buffers();
 
 	return ret;
 }
-
-
-// todo: add ability to get data from file.
 
 int* getSequence(int start, int stop, int step)
 {
