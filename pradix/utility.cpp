@@ -17,8 +17,7 @@ bool checkOrder(int* data, int length, bool ascending)
 				return false;
 		}
 		return true;
-	}
-	else {
+	} else {
 		for (int i = 1; i < length; ++i)
 		{
 			if (data[i] > data[i - 1])

@@ -8,10 +8,10 @@
 int main(int argc, char** argv)
 {
 	int maxThreads = omp_get_max_threads();
-	printf("OMP max threads: %d\n", maxThreads);
+	printf("OMP max threads: %d\n\n", maxThreads);
 
 	// let's first implement it sequentially to show i know what i'm doing
-	const int COUNT = INT_MAX;
+	const int COUNT = 100;
 	printf("generating %d numbers...", COUNT);
 
 	int* data = getRandomsParallel(COUNT, 0, INT_MAX);
@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	printf("sorting...\n");
 
 	Radix2SorterParallel sorter(3);
-	data = sorter.sort(data, COUNT);
+	sorter.sort(data, COUNT);
 
 	printf("sort done\n");
 	//printArray(data, COUNT);

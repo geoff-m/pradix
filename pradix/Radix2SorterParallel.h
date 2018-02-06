@@ -2,6 +2,8 @@
 #include <omp.h>
 #include <limits>
 #include <stdio.h>
+#include <stdlib.h>
+#include <iterator>
 
 class Radix2SorterParallel
 {
@@ -24,8 +26,8 @@ public:
 		mask = radix - 1;
 	}
 
-	int* sort(int* data, int length, int maximum);
-	int* sort(int* data, int length);
+	void sort(int* data, int length, int maximum);
+	void sort(int* data, int length);
 
 };
 
